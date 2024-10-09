@@ -10,11 +10,17 @@ namespace Proyecto2
     {
         public string Titulo { get; set; }
         public string Autor { get; set; }
-        public int MyProperty { get; set; }
+        public string Genero { get; set; }
+        public int ISBN { get; set; }
         public bool Disponible { get; set; }
+        public int ContadorPrestamo { get; set; }
 
-        public Libro()
-        {
+        public Libro() { }
+        public void EditarLibro() 
+        { 
+            
         }
+
+
     }
 }
