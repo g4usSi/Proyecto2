@@ -11,7 +11,10 @@ namespace Proyecto2
         public DateTime FechaPrestamo { get; set; }
         public Libro LibroPrestado { get; set; }
         public Lector LectorPrestamo { get; set; }
-
+        public void DevolverLibroLista()
+        {
+            Console.WriteLine("");
+        }
 
 
     }

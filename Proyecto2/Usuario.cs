@@ -11,20 +11,17 @@ namespace Proyecto2
         public string ID { get; set; }
         public string Password  { get; set; }
         public string Rol { get; set; }
-
+        public Usuario(string iD, string password, string rol)
+        {
+            ID = iD;
+            Password = password;
+            Rol = rol;
+        }
+        public void EditarUsuario() 
+        { 
+            
+        }
 
 
     }
-
-    public class Bibliotecario : Usuario 
-    { 
-        
-    }
-
-    public class Lector : Usuario 
-    {
-        
-    }
-
-
 }

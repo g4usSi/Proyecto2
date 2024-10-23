@@ -39,14 +39,13 @@ class Program
                 case 5:
                     Console.WriteLine("--- Devolver un libro ---");
                     Console.WriteLine("Ingrese el nombre del libro que desea actualizar: ");
- 
+                    
                     break;
                 default:
                     Console.WriteLine("Ha ingresado una opción no válida. Por favor intente de nuevo.");
 
-                    break;
+                break;
             }
         } while (opcion != 6);
-        Console.WriteLine("Fin del Programa\n Geovanny Alcon ----- 1578324");
     }
 }

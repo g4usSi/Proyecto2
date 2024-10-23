@@ -10,6 +10,8 @@ namespace Proyecto2
     {
         private List<Libro> Libros = new List<Libro>();
         private List<Usuario> Usuarios = new List<Usuario>();
+        private List<Prestamo> prestamos = new List<Prestamo>();
+        private Queue<Lector> listaEspera = new Queue<Lector>();
 
 
 
