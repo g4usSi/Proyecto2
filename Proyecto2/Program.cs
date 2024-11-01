@@ -31,20 +31,15 @@ class Program
                     }
                     break;
                 case 2:
-                    Console.WriteLine("--- Mostrar Libros ---");
+                    Console.WriteLine("--- Gestion Usuarios ---");
 
                     break;
                 case 3:
-                    Console.WriteLine("--- Gestion Usuarios ---");
+                    Console.WriteLine("--- Gestion Prestamos ---");
                     Console.WriteLine("Ingrese el nombre del libro que desea buscar: ");
 
                     break;
                 case 4:
-                    Console.WriteLine("--- Gestion Prestamos ---");
-                    Console.WriteLine("Ingrese el nombre del libro que desea prestar: ");
-
-                    break;
-                case 5:
                     Console.WriteLine("--- Cerrar Sesion ---");
                     Console.WriteLine("Ingrese el nombre del libro que desea actualizar: ");
                     
