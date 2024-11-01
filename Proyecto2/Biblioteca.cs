@@ -13,13 +13,13 @@ namespace Proyecto2
         private List<Usuario> usuarios = new List<Usuario>();
         private List<Prestamo> prestamos = new List<Prestamo>();
         private Queue<Lector> listaEspera = new Queue<Lector>();
-        private bool Ordenados = false; //Libros ordenados
+        private bool LibrosOrdenados = false; //Libros ordenados
 
         //Modulo 1 Gestion de Libros
         //Agregar Libro
         public void AgregarLibro() 
         {
-            Console.Write("Agregar Libro Nuevo");
+            Console.WriteLine("Agregar Libro Nuevo");
             Console.Write("Titulo: ");
             string titulo = Console.ReadLine();
             Console.Write("Autor: ");
@@ -31,9 +31,10 @@ namespace Proyecto2
 
             if (!LibroExistente(librosBiblioteca, isbn))
             {
-                Libro libro = new Libro(titulo, autor, genero, isbn);
+                Libro libroNuevo = new Libro(titulo, autor, genero, isbn);
+                librosBiblioteca.Add(libroNuevo);
                 Console.WriteLine("Libro agregado exitosamente.");
-                Ordenados = false;
+                LibrosOrdenados = false;
             }
             else
             {
@@ -47,17 +48,17 @@ namespace Proyecto2
         }
         // ***** Busqueda de Libros ***** //
         //Metodo de introduccion de datos
-        public string ParametroBuscar() 
+        private string ParametroBuscar() 
         {
             Console.Write("Ingrese el titulo o autor del libro: ");
             string parametro = Console.ReadLine();
-            return parametro;
+            return parametro.ToLower();
         }
         public void MostrarLibroBuscado()
         {
             string parametro = ParametroBuscar();
             //agregar logica si ya estan ordenados
-            Libro libroBuscado = BuscarLibro(librosBiblioteca, parametro);
+            Libro libroBuscado = BuscarLibroTitAut(librosBiblioteca, parametro);
             if (libroBuscado != null)
             {
                 libroBuscado.MostrarLibro();
@@ -70,20 +71,32 @@ namespace Proyecto2
         }
 
         //Secuencial (Muy importante UwU)
-        public Libro BuscarLibro(List<Libro> librosBiblioteca, string parametro)
+        public Libro BuscarLibroTitAut(List<Libro> librosBiblioteca, string parametro)
         {
             if (parametro == null || parametro == "") return null;
 
             foreach (var libro in librosBiblioteca)
             {
-                if (libro.Titulo == parametro || libro.Autor == parametro)
+                if (libro.Titulo.ToLower() == parametro || libro.Autor.ToLower() == parametro)
                 {
                     return libro;
                 }
             }
             return null;
         }
+        public Libro BuscarLibroISBN(List<Libro> librosBiblioteca, string iSBN)
+        {
+            if (iSBN == null) return null;
 
+            foreach (var libro in librosBiblioteca)
+            {
+                if (libro.ISBN == iSBN)
+                {
+                    return libro;
+                }
+            }
+            return null;
+        }
         //BusquedaBinaria
         public Libro BuscarLibroBinario(List<Libro> librosBiblioteca, string ISBN)
         {
@@ -114,18 +127,39 @@ namespace Proyecto2
         //Eliminar Libro
         public void EliminarLibro()
         {
+            Console.WriteLine("Ingrese el ISBN del libro: ");
+            string parametro = Console.ReadLine();
 
+            if (!LibroExistente(librosBiblioteca, parametro))
+            {
+                Console.WriteLine("Error. No hay coincidencias.");
+                return;
+            }
+            Libro libroEliminar = BuscarLibroISBN(librosBiblioteca, parametro);
+            libroEliminar.MostrarLibro();
 
+            Console.WriteLine("Seguro desea eliminar el libro de la biblioteca? (S/N)");
+            string eliminacion = Console.ReadLine().ToLower();
+
+            if (eliminacion == "s"||eliminacion == "si")
+            {
+                librosBiblioteca.Remove(libroEliminar);
+                Console.WriteLine("El libro se ha eliminado de la lista.");
+            }
+            else
+            {
+                Console.WriteLine("El libro sigue en la lista.");
+            }
         }
 
-        //Modulo 2
+        //Modulo 2 Gestion de Usuarios
 
 
 
         public void OrdenarLibros() 
         {
 
-            Ordenados = true;
+            LibrosOrdenados = true;
         }
 
 

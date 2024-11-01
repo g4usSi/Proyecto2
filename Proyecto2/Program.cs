@@ -3,23 +3,32 @@ class Program
 {
     static void Main(string[] args)
     {
+        Biblioteca biblioteca = new Biblioteca();
         //agregar logica de usuarios
 
         int opcion = 0;
         do
         {
-
-
-
             Menu();
             opcion = Convert.ToInt32(Console.ReadLine());
             switch (opcion)
             {
                 case 1:
                     Console.WriteLine("--- Gestion Libros ---");
-
-
-
+                    GestionLibros();
+                    opcion = Convert.ToInt32(Console.ReadLine());
+                    switch (opcion)
+                    {
+                        case 1:
+                            biblioteca.AgregarLibro();
+                            break;
+                        case 2:
+                            biblioteca.MostrarLibroBuscado();
+                            break;
+                        case 3:
+                            biblioteca.EliminarLibro();
+                        break;
+                    }
                     break;
                 case 2:
                     Console.WriteLine("--- Mostrar Libros ---");
@@ -57,10 +66,20 @@ class Program
         Console.Write("Ingrese una opcion: ");
     }
     static void GestionLibros() 
-    { 
-
-    
+    {
+        Console.WriteLine("1. Agregar libro nuevo");
+        Console.WriteLine("2. Buscar libro");
+        Console.WriteLine("3. Eliminar libro");
+        Console.Write("Ingrese una opcion: ");
     }
+    static void GestionUsuarios()
+    {
+        Console.WriteLine();
+    }
+    static void GestionPrestamos()
+    {
 
+
+    }
 
 }

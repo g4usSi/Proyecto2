@@ -14,19 +14,14 @@ namespace Proyecto2
         public string ISBN { get; set; }
         public bool Disponible { get; set; }
         public int ContadorPrestamos { get; set; }
-        
+
         //metodo de agregacion
-        //
         public Libro(string titulo, string autor, string genero, string isbn, bool disponible = true, int contadorPrestamo = 0)
         {
-            Console.Write("Titulo: ");
-            Titulo = Console.ReadLine();
-            Console.Write("Autor: ");
-            Autor = Console.ReadLine();
-            Console.Write("Genero: ");
-            Genero = Console.ReadLine();
-            Console.Write("ISBN: ");
-            ISBN = Console.ReadLine();
+            Titulo = titulo;
+            Autor = autor;
+            Genero = genero;
+            ISBN = isbn;
             Disponible = disponible;
             ContadorPrestamos = contadorPrestamo;
         }
@@ -55,7 +50,7 @@ namespace Proyecto2
         }
         public void MostrarLibro()
         {
-            Console.WriteLine($"Titulo: {Titulo} Autor: {Autor} Genero: {Genero}\nISBN: {ISBN}");
+            Console.WriteLine($"Titulo: {Titulo} \nAutor: {Autor} \nGenero: {Genero}\nISBN: {ISBN}");
         }
 
         public void AumentarContadorPrestamo() 
