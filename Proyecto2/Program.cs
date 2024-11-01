@@ -29,22 +29,14 @@ class Program
                     }
                     break;
                 case 2:
-                    Console.WriteLine("--- Gestion Usuarios ---");
-                    Console.WriteLine("Ingrese el nombre del usuario");
-                    string nombreUsuario = Console.ReadLine();
-                    Usuario usuarioModificado = biblioteca.BuscarUsuario(nombreUsuario);
-                    if (usuarioModificado == null)
-                    {
-                        Console.WriteLine("Error. No se ha encontrado al usuario...");
-                        return;
-                    }
+                    Console.WriteLine("--- Gestion Usuarios ---");;
                     switch (GestionUsuarios(opcion))
                     {
                         case 1:
-                            biblioteca.EditarUsuario(usuarioModificado);
+                            biblioteca.RegistrarUsuarioNuevo();
                             break;
                         case 2:
-                            biblioteca.EliminarUsuario(usuarioModificado);
+                            biblioteca.EliminarEditarUsuario();
                         break;
                     }
 
@@ -63,7 +55,7 @@ class Program
                     Console.WriteLine("Ha ingresado una opción no válida. Por favor intente de nuevo.");
                 break;
             }
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
     //Cambiar Menus
     static void Menu() 

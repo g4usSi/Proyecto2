@@ -173,8 +173,16 @@ namespace Proyecto2
                 break;
             }
         }
-        public void EliminarEditarUsuario(Usuario usuarioModificado)
+        public void EliminarEditarUsuario()
         {
+            Console.WriteLine("Ingrese el nombre del usuario");
+            string nombreUsuario = Console.ReadLine();
+            Usuario usuarioModificado = BuscarUsuario(nombreUsuario);
+            if (usuarioModificado == null)
+            {
+                Console.WriteLine("Error. No se ha encontrado al usuario...");
+                return;
+            }
 
             Console.WriteLine("1. Editar");
             Console.WriteLine("2. Eliminar");
@@ -208,7 +216,7 @@ namespace Proyecto2
             listaUsuarios.Remove(usuarioBuscado);
         }
 
-        public Usuario BuscarUsuario(string nombreUsuario) 
+        private Usuario BuscarUsuario(string nombreUsuario) 
         {
             foreach(var usuario in listaUsuarios)
             {
