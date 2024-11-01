@@ -8,11 +8,18 @@ namespace Proyecto2
 {
     public class Lector : Usuario
     {
-        public Lector(string iD, string password, string rol) : base(iD, password, rol)
+        public Lector() : base()
+        {
+            this.Rol = "Lector";
+        }
+        public void SolicitarLibro(List<Libro> librosBiblioteca) 
         {
             
         }
-
+        public void DevolverLibro(List<Libro> librosBiblioteca) 
+        { 
+            
+        }
 
     }
 }

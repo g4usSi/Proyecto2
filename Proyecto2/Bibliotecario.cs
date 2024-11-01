@@ -8,9 +8,22 @@ namespace Proyecto2
 {
     public class Bibliotecario : Usuario
     {
-        public Bibliotecario(string iD, string password, string rol) : base(iD, password, rol)
+        public Bibliotecario() : base()
         {
-
+            this.Rol = "Bibliotecario";
         }
+        public Usuario BuscarUsuario(List<Usuario> listaUsuarios, string usuarioBuscar)
+        {
+            foreach (var usuarioActual in listaUsuarios) 
+            {
+                if (usuarioActual.ID == usuarioBuscar) 
+                { 
+                    return usuarioActual;
+                }
+            }
+            return null;
+        }
+
+
     }
 }
