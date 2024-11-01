@@ -50,7 +50,7 @@ namespace Proyecto2
         }
         public void MostrarLibro()
         {
-            Console.WriteLine($"Titulo: {Titulo} \nAutor: {Autor} \nGenero: {Genero}\nISBN: {ISBN}");
+            Console.WriteLine( $"Titulo: {Titulo} \nAutor: {Autor} \nGenero: {Genero}\nISBN: {ISBN}");
         }
 
         public void AumentarContadorPrestamo() 

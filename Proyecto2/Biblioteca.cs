@@ -10,8 +10,8 @@ namespace Proyecto2
     public class Biblioteca
     {
         private List<Libro> librosBiblioteca = new List<Libro>();
-        private List<Usuario> usuarios = new List<Usuario>();
-        private List<Prestamo> prestamos = new List<Prestamo>();
+        private List<Usuario> listaUsuarios = new List<Usuario>();
+        private List<Libro> prestamos = new List<Libro>();
         private Queue<Lector> listaEspera = new Queue<Lector>();
         private bool LibrosOrdenados = false; //Libros ordenados
 
@@ -153,7 +153,72 @@ namespace Proyecto2
         }
 
         //Modulo 2 Gestion de Usuarios
+        public void RegistrarUsuarioNuevo() 
+        {
+            Console.WriteLine("1. Bibliotecario\n2. Lector");
+            Console.Write("Ingrese una opcion: ");
+            int opcion = Convert.ToInt32(Console.ReadLine());
 
+            switch (opcion) 
+            {
+                case 1:
+                    Bibliotecario nuevoBibliotecario = new Bibliotecario();
+                    listaUsuarios.Add(nuevoBibliotecario);
+                    Console.WriteLine("Se ha agregado al nuevo usuario.");
+                    break;
+                case 2:
+                    Lector nuevoLector = new Lector();
+                    listaUsuarios.Add(nuevoLector);
+                    Console.WriteLine("Se ha agregado al nuevo usuario.");
+                break;
+            }
+        }
+        public void EliminarEditarUsuario(Usuario usuarioModificado)
+        {
+
+            Console.WriteLine("1. Editar");
+            Console.WriteLine("2. Eliminar");
+            Console.Write("Ingrese una opcion: ");
+            int opcion = Convert.ToInt32(Console.ReadLine());
+            switch (opcion)
+            {
+                case 1:
+                    EditarUsuario(usuarioModificado);
+                    Console.WriteLine("Se ha agregado al nuevo usuario.");
+                    break;
+                case 2:
+                    Console.WriteLine("Seguro desea eliminar al usuario? (S/N)");
+                    EliminarUsuario(usuarioModificado);
+                    Console.WriteLine("Se ha agregado al nuevo usuario.");
+                break;
+            }
+        }
+
+        public void EditarUsuario(Usuario usuarioBuscado)
+        {
+            Console.WriteLine("Ingrese los nuevos datos a editar...");
+            Console.Write("ingrese el nuevo nombre: ");
+            usuarioBuscado.ID = Console.ReadLine();
+            Console.WriteLine("Ingrese la nueva contraseña: ");
+            usuarioBuscado.Password = Console.ReadLine();
+            Console.WriteLine("Cambio realizado");
+        }
+        public void EliminarUsuario(Usuario usuarioBuscado) 
+        { 
+            listaUsuarios.Remove(usuarioBuscado);
+        }
+
+        public Usuario BuscarUsuario(string nombreUsuario) 
+        {
+            foreach(var usuario in listaUsuarios)
+            {
+                if(usuario.ID.ToLower() == nombreUsuario.ToLower())
+                {
+                    return usuario;
+                }
+            }
+            return null;
+        }
 
 
 

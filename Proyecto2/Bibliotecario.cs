@@ -17,7 +17,7 @@ namespace Proyecto2
             foreach (var usuarioActual in listaUsuarios) 
             {
                 if (usuarioActual.ID == usuarioBuscar) 
-                { 
+                {
                     return usuarioActual;
                 }
             }

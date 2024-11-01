@@ -15,7 +15,7 @@ namespace Proyecto2
         {
             if (iD == null)
             {
-                Console.Write("Ingrese el id: ");
+                Console.Write("Ingrese el nombre: ");
                 ID = Console.ReadLine();
             }
             else
@@ -34,8 +34,9 @@ namespace Proyecto2
             }
             this.Rol = rol;
         }
-
-
-
+        public virtual void MostrarUsuario(Usuario usuario) 
+        {
+            Console.WriteLine($"Nombre: {ID} \nRol: {Rol}");
+        }
     }
 }
