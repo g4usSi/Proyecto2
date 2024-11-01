@@ -9,29 +9,80 @@ namespace Proyecto2
 {
     public class Biblioteca
     {
-        private List<Libro> Libros = new List<Libro>();
-        private List<Usuario> Usuarios = new List<Usuario>();
+        private List<Libro> librosBiblioteca = new List<Libro>();
+        private List<Usuario> usuarios = new List<Usuario>();
         private List<Prestamo> prestamos = new List<Prestamo>();
         private Queue<Lector> listaEspera = new Queue<Lector>();
+        private bool Ordenados = false; //Libros ordenados
 
         //Modulo 1 Gestion de Libros
         //Agregar Libro
         public void AgregarLibro() 
         {
             Console.Write("Agregar Libro Nuevo");
-            Libro libro = new Libro();
+            Console.Write("Titulo: ");
+            string titulo = Console.ReadLine();
+            Console.Write("Autor: ");
+            string autor = Console.ReadLine();
+            Console.Write("Genero: ");
+            string genero = Console.ReadLine();
+            Console.Write("ISBN: ");
+            string isbn = Console.ReadLine();
 
+            if (!LibroExistente(librosBiblioteca, isbn))
+            {
+                Libro libro = new Libro(titulo, autor, genero, isbn);
+                Console.WriteLine("Libro agregado exitosamente.");
+                Ordenados = false;
+            }
+            else
+            {
+                Console.WriteLine("Error. Ya existe un libro con el mismo ISBN.");
+            }
         }
 
-        // Busqueda de Libros //
-        //Parametros Titulo, Autor
-        public Libro BuscarLibroSecuencial()
+        private bool LibroExistente(List<Libro> librosBiblioteca, string ISBN)
         {
+            return librosBiblioteca.Any(libro => libro.ISBN == ISBN);
+        }
+        // ***** Busqueda de Libros ***** //
+        //Metodo de introduccion de datos
+        public string ParametroBuscar() 
+        {
+            Console.Write("Ingrese el titulo o autor del libro: ");
+            string parametro = Console.ReadLine();
+            return parametro;
+        }
+        public void MostrarLibroBuscado()
+        {
+            string parametro = ParametroBuscar();
+            //agregar logica si ya estan ordenados
+            Libro libroBuscado = BuscarLibro(librosBiblioteca, parametro);
+            if (libroBuscado != null)
+            {
+                libroBuscado.MostrarLibro();
+            }
+            else 
+            {
+                Console.WriteLine("Error. No hay coincidencias.");
+            }
+            
+        }
 
+        //Secuencial (Muy importante UwU)
+        public Libro BuscarLibro(List<Libro> librosBiblioteca, string parametro)
+        {
+            if (parametro == null || parametro == "") return null;
+
+            foreach (var libro in librosBiblioteca)
+            {
+                if (libro.Titulo == parametro || libro.Autor == parametro)
+                {
+                    return libro;
+                }
+            }
             return null;
         }
-
-
 
         //BusquedaBinaria
         public Libro BuscarLibroBinario(List<Libro> librosBiblioteca, string ISBN)
@@ -60,15 +111,21 @@ namespace Proyecto2
 
             return null;
         }
-        
+        //Eliminar Libro
+        public void EliminarLibro()
+        {
+
+
+        }
 
         //Modulo 2
 
 
 
         public void OrdenarLibros() 
-        { 
-            
+        {
+
+            Ordenados = true;
         }
 
 
