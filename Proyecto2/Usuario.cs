@@ -34,9 +34,15 @@ namespace Proyecto2
             }
             this.Rol = rol;
         }
-        public virtual void MostrarUsuario(Usuario usuario) 
+        public virtual void MostrarUsuario() 
         {
             Console.WriteLine($"Nombre: {ID} \nRol: {Rol}");
+        }
+        public virtual void SolicitarLibro(Libro libroPrestar)
+        {
+        }
+        public virtual void DevolverLibro()
+        {
         }
     }
 }

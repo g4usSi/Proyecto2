@@ -12,17 +12,11 @@ namespace Proyecto2
         {
             this.Rol = "Bibliotecario";
         }
-        public Usuario BuscarUsuario(List<Usuario> listaUsuarios, string usuarioBuscar)
+        public override void MostrarUsuario()
         {
-            foreach (var usuarioActual in listaUsuarios) 
-            {
-                if (usuarioActual.ID == usuarioBuscar) 
-                {
-                    return usuarioActual;
-                }
-            }
-            return null;
+            base.MostrarUsuario();
         }
+  
 
 
     }

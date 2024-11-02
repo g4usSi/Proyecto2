@@ -9,15 +9,19 @@ namespace Proyecto2
 {
     public class Biblioteca
     {
+        //declarar un usuario actual?
+        private Usuario usarioActual = new Usuario("SuperUsuario", "super");
+        //Listas
         private List<Libro> librosBiblioteca = new List<Libro>();
-        private List<Usuario> listaUsuarios = new List<Usuario>();
-        private List<Libro> prestamos = new List<Libro>();
+        private List<Usuario> listaUsuarios = new List<Usuario>();//LinkedList
+        private List<Libro> prestamos = new List<Libro>();//LinkedList
         private Queue<Lector> listaEspera = new Queue<Lector>();
+        //Estados
         private bool LibrosOrdenados = false; //Libros ordenados
 
         //Modulo 1 Gestion de Libros
-        //Agregar Libro
-        public void AgregarLibro() 
+        //Agregar Libros
+        public void AgregarLibro()
         {
             Console.WriteLine("Agregar Libro Nuevo");
             Console.Write("Titulo: ");
@@ -63,15 +67,29 @@ namespace Proyecto2
             {
                 libroBuscado.MostrarLibro();
             }
-            else 
+            else
             {
                 Console.WriteLine("Error. No hay coincidencias.");
             }
-            
         }
 
-        //Secuencial (Muy importante UwU)
-        public Libro BuscarLibroTitAut(List<Libro> librosBiblioteca, string parametro)
+        //Recursivo
+        public Libro BuscarLibroTitAut(List<Libro> librosBiblioteca, string parametro, int indiceLista = 0)
+        {
+            if (string.IsNullOrEmpty(parametro) || librosBiblioteca == null || indiceLista >= librosBiblioteca.Count)
+            {
+                return null;
+            }
+            var libroActual = librosBiblioteca[indiceLista];
+            if (libroActual.Titulo.ToLower() == parametro.ToLower() || libroActual.Autor.ToLower() == parametro.ToLower())
+            {
+                return libroActual;
+            }
+            return BuscarLibroTitAut(librosBiblioteca, parametro, indiceLista + 1);
+        }
+
+        /*Busque de libro Secuencial
+         * public Libro BuscarLibroTitAut(List<Libro> librosBiblioteca, string parametro)
         {
             if (parametro == null || parametro == "") return null;
 
@@ -83,14 +101,15 @@ namespace Proyecto2
                 }
             }
             return null;
-        }
+        }*/
+
         public Libro BuscarLibroISBN(List<Libro> librosBiblioteca, string iSBN)
         {
             if (iSBN == null) return null;
 
             foreach (var libro in librosBiblioteca)
             {
-                if (libro.ISBN == iSBN)
+                if (libro.ISBN.ToLower() == iSBN.ToLower())
                 {
                     return libro;
                 }
@@ -121,7 +140,6 @@ namespace Proyecto2
                     derecha = mid - 1;
                 }
             }
-
             return null;
         }
         //Eliminar Libro
@@ -153,6 +171,7 @@ namespace Proyecto2
         }
 
         //Modulo 2 Gestion de Usuarios
+        //Opc 1
         public void RegistrarUsuarioNuevo() 
         {
             Console.WriteLine("1. Bibliotecario\n2. Lector");
@@ -173,6 +192,7 @@ namespace Proyecto2
                 break;
             }
         }
+        //Opc 2
         public void EliminarEditarUsuario()
         {
             Console.WriteLine("Ingrese el nombre del usuario");
@@ -207,7 +227,7 @@ namespace Proyecto2
             Console.WriteLine("Ingrese los nuevos datos a editar...");
             Console.Write("ingrese el nuevo nombre: ");
             usuarioBuscado.ID = Console.ReadLine();
-            Console.WriteLine("Ingrese la nueva contraseña: ");
+            Console.Write("Ingrese la nueva contraseña: ");
             usuarioBuscado.Password = Console.ReadLine();
             Console.WriteLine("Cambio realizado");
         }
@@ -220,13 +240,21 @@ namespace Proyecto2
         {
             foreach(var usuario in listaUsuarios)
             {
-                if(usuario.ID.ToLower() == nombreUsuario.ToLower())
+                if (usuario.ID.ToLower() == nombreUsuario.ToLower())
                 {
                     return usuario;
                 }
             }
             return null;
         }
+        public void MostrarListaUsuarios() 
+        {
+            foreach (var usuarioActual in listaUsuarios)
+            {
+                usuarioActual.MostrarUsuario();
+            }
+        }
+        //Modulo 3 Prestamos Lector
 
 
 

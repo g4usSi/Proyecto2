@@ -5,7 +5,8 @@ class Program
     static void Main(string[] args)
     {
         Biblioteca biblioteca = new Biblioteca();
-        //agregar logica de usuarios
+
+        //Bibliotecario
         int opcion = 0;
         do
         {
@@ -39,16 +40,13 @@ class Program
                             biblioteca.EliminarEditarUsuario();
                         break;
                     }
-
                     break;
                 case 3:
                     Console.WriteLine("--- Gestion Prestamos ---");
-                    Console.WriteLine("Ingrese el nombre del libro que desea buscar: ");
 
                     break;
                 case 4:
                     Console.WriteLine("--- Cerrar Sesion ---");
-                    Console.WriteLine("Ingrese el nombre del libro que desea actualizar: ");
                     
                     break;
                 default:
@@ -84,11 +82,15 @@ class Program
         Console.Write("Ingrese una opcion: ");
         opcion = Convert.ToInt32(Console.ReadLine());
         return opcion;
-    }
-    static void GestionPrestamos()
+    }    static int GestionPrestamos(int opcion)
     {
-
-
+        Console.WriteLine("1. Solicitar Libro");
+        Console.WriteLine("2. Devolver Libro");
+        Console.Write("Ingrese una opcion: ");
+        opcion = Convert.ToInt32(Console.ReadLine());
+        return opcion;
     }
+
+    //Lector
 
 }
