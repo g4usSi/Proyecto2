@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto2.Proyecto2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,10 +15,11 @@ namespace Proyecto2
         //Listas
         private List<Libro> librosBiblioteca = new List<Libro>();
         private List<Usuario> listaUsuarios = new List<Usuario>();//LinkedList
-        private List<Libro> prestamos = new List<Libro>();//LinkedList
-        private Queue<Lector> listaEspera = new Queue<Lector>();
+        private List<Prestamo> prestamos = new List<Prestamo>();//LinkedList
+        private Queue<SolicitudEspera> listaEspera = new Queue<SolicitudEspera>();
         //Estados
         private bool LibrosOrdenados = false; //Libros ordenados
+        private HistorialAcciones historialAcciones = new HistorialAcciones();
 
         //Modulo 1 Gestion de Libros
         //Agregar Libros
@@ -255,13 +257,117 @@ namespace Proyecto2
             }
         }
         //Modulo 3 Prestamos Lector
+        //metodo temporal para solicitar prestamos
+        public void GestionPrestamos() 
+        {
+            //Provisional hasta hacer login, se reemplazara con prop UsuarioActual ;3
+            Console.WriteLine("Ingrese su nombre: ");
+            string nombre = Console.ReadLine();
+            Usuario usuario = BuscarUsuario(nombre);
+            if (usuario is Lector)
+            {
+                Lector lectorActual = (Lector)usuario;
+                Console.WriteLine("1. Solicitar");
+                Console.WriteLine("2. Devolver");
+                Console.WriteLine("3. Deshacer");
+                Console.Write("Ingrese una opcion: ");
+                int opc = Convert.ToInt32(Console.ReadLine());
+                switch (opc) 
+                {
+                    case 1:
+                    SolicitarLibro(lectorActual);
+                        break;
+                    case 2:
+                    DevolverLibro(lectorActual);
+                    break;
+                    case 3:
+                        historialAcciones.DeshacerUltimaAccion();
+                    break;
+                }
+            }
+            else 
+            {
+                Console.WriteLine("El usuario ingresado no es un lector o no existe.");
+                return;
+            }
+
+
+        }
+
+        //Solicitar
+        public void SolicitarLibro(Lector lector)
+        {
+            Console.Write("Ingrese el ISBN del libro que desea solicitar: ");
+            string isbn = Console.ReadLine();
+            Libro libroSolicitado = BuscarLibroISBN(librosBiblioteca, isbn);
+
+            if (libroSolicitado == null)
+            {
+                Console.WriteLine("Error. El libro no se encuentra en la biblioteca.");
+                return;
+            }
+
+            if (!libroSolicitado.Disponible)
+            {
+                SolicitudEspera nuevaSolicitud = new SolicitudEspera(lector, libroSolicitado);
+                listaEspera.Enqueue(nuevaSolicitud);
+                Console.WriteLine("Error. El libro ya está prestado.");
+                Console.WriteLine("Se le ha agregado a una lista de espera...");
+                return;
+            }
+
+            Prestamo nuevoPrestamo = new Prestamo(libroSolicitado, lector);
+            prestamos.Add(nuevoPrestamo);
+
+            Console.WriteLine($"El libro '{libroSolicitado.Titulo}' ha sido prestado a {lector.ID}.");
+
+            // Registrar acción en el historial
+            historialAcciones.RegistrarAccion(new AccionBiblioteca("Préstamo", libroSolicitado));
+        }
+        //Devolver
+        public void DevolverLibro(Lector lector)
+        {
+            Console.Write("Ingrese el ISBN del libro que desea devolver: ");
+            string isbn = Console.ReadLine();
+
+            Prestamo prestamo = prestamos.Find(p => p.LibroPrestado.ISBN == isbn && p.LectorPrestamo.ID == lector.ID);
+
+            if (prestamo == null)
+            {
+                Console.WriteLine("Error. No se encontró un préstamo correspondiente.");
+                return;
+            }
+
+            prestamo.DevolverLibro();
+            prestamos.Remove(prestamo);
+
+            Console.WriteLine($"El libro '{prestamo.LibroPrestado.Titulo}' ha sido devuelto por {lector.ID}.");
+
+            // Registrar acción en el historial
+            historialAcciones.RegistrarAccion(new AccionBiblioteca("Devolución", prestamo.LibroPrestado));
+        }
+        //Mostrar prestamos activos
+        public void MostrarPrestamosActivos()
+        {
+            if (prestamos != null)
+            {
+                foreach (var p in prestamos)
+                {
+                    p.MostrarPrestamo();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error. No hay prestamos activos");
+            }
+        }
+
+        //Deshacer Accion
 
 
 
 
-
-
-
+        //Funcionalidades
         public void OrdenarLibros() 
         {
 

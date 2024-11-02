@@ -6,16 +6,33 @@ using System.Threading.Tasks;
 
 namespace Proyecto2
 {
-    public class Prestamo
+    namespace Proyecto2
     {
-        public DateTime FechaPrestamo { get; set; }
-        public Libro LibroPrestado { get; set; }
-        public Lector LectorPrestamo { get; set; }
-        public void DevolverLibroLista()
+        public class Prestamo
         {
-            Console.WriteLine("");
+            public DateTime FechaPrestamo { get; private set; }
+            public Libro LibroPrestado { get; private set; }
+            public Lector LectorPrestamo { get; private set; }
+
+            public Prestamo(Libro libro, Lector lector)
+            {
+                FechaPrestamo = DateTime.Now;
+                LibroPrestado = libro;
+                LectorPrestamo = lector;
+                libro.Disponible = false;
+                LectorPrestamo.SolicitarLibro(libro);
+            }
+
+            public void DevolverLibro()
+            {
+                LibroPrestado.Disponible = true;
+                Console.WriteLine("El libro ha sido devuelto correctamente.");
+                LectorPrestamo.DevolverLibro();
+            }
+            public void MostrarPrestamo() 
+            {
+                Console.WriteLine($"Fecha: {FechaPrestamo}, Libro:{LibroPrestado.Titulo}, Lector: {LectorPrestamo.ID}");
+            }
         }
-
-
     }
 }

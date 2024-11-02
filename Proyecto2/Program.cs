@@ -43,7 +43,7 @@ class Program
                     break;
                 case 3:
                     Console.WriteLine("--- Gestion Prestamos ---");
-
+                    biblioteca.GestionPrestamos();
                     break;
                 case 4:
                     Console.WriteLine("--- Cerrar Sesion ---");
