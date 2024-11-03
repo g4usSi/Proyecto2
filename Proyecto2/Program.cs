@@ -112,8 +112,5 @@ public class Program
         opcion = Convert.ToInt32(Console.ReadLine());
         return opcion;
     }
-
-    //Lector
-
-
+    //Lector logica
 }
