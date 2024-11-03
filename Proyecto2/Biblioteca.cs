@@ -11,15 +11,43 @@ namespace Proyecto2
     public class Biblioteca
     {
         //declarar un usuario actual?
-        private Usuario usarioActual = new Usuario("SuperUsuario", "super");
+        private Usuario UsuarioActual = null;
+
         //Listas
         private List<Libro> librosBiblioteca = new List<Libro>();
         private List<Usuario> listaUsuarios = new List<Usuario>();//LinkedList
         private List<Prestamo> prestamos = new List<Prestamo>();//LinkedList
         private Queue<SolicitudEspera> listaEspera = new Queue<SolicitudEspera>();
+
         //Estados
         private bool LibrosOrdenados = false; //Libros ordenados
         private HistorialAcciones historialAcciones = new HistorialAcciones();
+
+        //LOGIN
+        public bool IniciarSesion(string nombre, string contrasena)
+        {
+            foreach (Usuario usuario in listaUsuarios)
+            {
+                if (usuario.ID == nombre && usuario.Password == contrasena)
+                {
+                    if (usuario is Lector lector)
+                    {
+                        UsuarioActual = lector;
+                    }
+                    else
+                    {
+                        UsuarioActual = usuario;
+                    }
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void CerrarSesion()
+        {
+            UsuarioActual = null;
+            Console.WriteLine("Sesión cerrada.");
+        }
 
         //Modulo 1 Gestion de Libros
         //Agregar Libros
@@ -346,6 +374,7 @@ namespace Proyecto2
             // Registrar acción en el historial
             historialAcciones.RegistrarAccion(new AccionBiblioteca("Devolución", prestamo.LibroPrestado));
         }
+
         //Mostrar prestamos activos
         public void MostrarPrestamosActivos()
         {
@@ -361,8 +390,38 @@ namespace Proyecto2
                 Console.WriteLine("Error. No hay prestamos activos");
             }
         }
+        public void MostrarLibrosMasSolicitados(int cantidad = 5)
+        {
+            if (cantidad > librosBiblioteca.Count)
+            {
+                cantidad = librosBiblioteca.Count;
+            }
 
-        //Deshacer Accion
+            Console.WriteLine($"Los {cantidad} libros más solicitados son:");
+
+            List<Libro> librosOrdenados = new List<Libro>(librosBiblioteca);
+            //Ordenamiento burbuja de libros mas solicitados
+            for (int i = 0; i < librosOrdenados.Count; i++)
+            {
+                for (int j = i + 1; j < librosOrdenados.Count; j++)
+                {
+                    if (librosOrdenados[i].ContadorPrestamos < librosOrdenados[j].ContadorPrestamos)
+                    {
+                        var temp = librosOrdenados[i];
+                        librosOrdenados[i] = librosOrdenados[j];
+                        librosOrdenados[j] = temp;
+                    }
+                }
+            }
+
+            foreach (var libro in librosOrdenados)
+            {
+                Console.WriteLine($"Título: {libro.Titulo}, Autor: {libro.Autor}, Préstamos: {libro.ContadorPrestamos}");
+            }
+        }
+
+
+
 
 
 

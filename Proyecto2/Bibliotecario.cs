@@ -16,8 +16,5 @@ namespace Proyecto2
         {
             base.MostrarUsuario();
         }
-  
-
-
     }
 }

@@ -6,6 +6,15 @@ class Program
     {
         Biblioteca biblioteca = new Biblioteca();
 
+        Console.WriteLine("\t\t\t=== Sistema de Biblioteca ===");
+        Console.Write("Nombre de usuario: ");
+        string nombre = Console.ReadLine();
+        Console.Write("Contraseña: ");
+        string contrasena = Console.ReadLine();
+
+
+
+
         //Bibliotecario
         int opcion = 0;
         do
@@ -92,5 +101,6 @@ class Program
     }
 
     //Lector
+
 
 }
