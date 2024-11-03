@@ -53,7 +53,7 @@ namespace Proyecto2
             Console.WriteLine( $"Titulo: {Titulo} \nAutor: {Autor} \nGenero: {Genero}\nISBN: {ISBN}\nDisponible: {Disponible}");
         }
 
-        public void AumentarContadorPrestamo() 
+        public void AumentarContadorPrestamo()
         {
             ContadorPrestamos++;
         }

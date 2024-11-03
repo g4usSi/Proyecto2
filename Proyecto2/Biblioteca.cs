@@ -346,7 +346,7 @@ namespace Proyecto2
 
             Prestamo nuevoPrestamo = new Prestamo(libroSolicitado, lector);
             prestamos.Add(nuevoPrestamo);
-
+            libroSolicitado.AumentarContadorPrestamo();
             Console.WriteLine($"El libro '{libroSolicitado.Titulo}' ha sido prestado a {lector.ID}.");
 
             // Registrar acción en el historial
