@@ -11,7 +11,7 @@ namespace Proyecto2
     public class Biblioteca
     {
         //declarar un usuario actual?
-        private Usuario UsuarioActual = null;
+        public Usuario UsuarioActual = null;
 
         //Listas
         private List<Libro> librosBiblioteca = new List<Libro>();
@@ -26,17 +26,17 @@ namespace Proyecto2
         //LOGIN
         public bool IniciarSesion(string nombre, string contrasena)
         {
-            foreach (Usuario usuario in listaUsuarios)
+            foreach (var usuario in listaUsuarios)
             {
                 if (usuario.ID == nombre && usuario.Password == contrasena)
                 {
-                    if (usuario is Lector lector)
+                    if (usuario is Bibliotecario bibliotecario)
+                    {
+                        UsuarioActual = bibliotecario;
+                    }
+                    else if (usuario is Lector lector)
                     {
                         UsuarioActual = lector;
-                    }
-                    else
-                    {
-                        UsuarioActual = usuario;
                     }
                     return true;
                 }
@@ -420,13 +420,7 @@ namespace Proyecto2
             }
         }
 
-
-
-
-
-
-
-        //Funcionalidades
+        //Funcionalidades de ordenamiento
         public void OrdenarLibros() 
         {
 

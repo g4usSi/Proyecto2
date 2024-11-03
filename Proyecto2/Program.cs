@@ -1,6 +1,6 @@
 ﻿using Proyecto2;
 using System.Threading.Channels;
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -12,11 +12,24 @@ class Program
         Console.Write("Contraseña: ");
         string contrasena = Console.ReadLine();
 
-
-
-
-        //Bibliotecario
-        int opcion = 0;
+        if (biblioteca.IniciarSesion(nombre, contrasena))
+        {
+            if (biblioteca.UsuarioActual is Bibliotecario)
+            {
+                //MostrarMenuBibliotecario(biblioteca);
+            }
+            else if (biblioteca.UsuarioActual is Lector)
+            {
+                //MostrarMenuLector(biblioteca);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Inicio de sesión fallido. Usuario o contraseña incorrectos.");
+        }
+    
+    //Bibliotecario
+    int opcion = 0;
         do
         {
             Menu();
